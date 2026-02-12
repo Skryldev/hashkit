@@ -1,6 +1,6 @@
 <div dir="rtl">
 
-# 🔐 ماژول SecurePassword برای Golang
+# 🔐 ماژول hashkit برای Golang
 
 یک ماژول حرفه‌ای و **Production-Ready** برای مدیریت پسوردها در پروژه‌های Golang.
 این ماژول به شما امکان می‌دهد پسوردها را با الگوریتم‌های امن **bcrypt** و **Argon2id** هش کنید، اعتبارسنجی کنید و حتی به صورت **auto-rehash** در صورت قدیمی بودن hash، آنها را به‌روزرسانی کنید.
@@ -23,7 +23,7 @@
 با استفاده از `go get`:
 
 ```bash
-go get github.com/username/securepassword
+go get github.com/Skryldev/hashkit
 ```
 ---
 ## 🧩 1️⃣ ساخت Engine (Initialization)
@@ -34,9 +34,9 @@ go get github.com/username/securepassword
 ```go
 func main() {
 
-	cfg := securepassword.DefaultConfig()
+	cfg := hashkit.DefaultConfig()
 
-	engine := securepassword.NewEngine(cfg)
+	engine := hashkit.NewEngine(cfg)
 	defer engine.Shutdown()
 
 	// حالا engine آماده استفاده است
@@ -109,7 +109,7 @@ fmt.Println("Login successful")
 <div dir="ltr">
 
 ```go
-func LoginHandler(engine *securepassword.Engine) http.HandlerFunc {
+func LoginHandler(engine *hashkit.Engine) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 
 		password := r.FormValue("password")
@@ -143,7 +143,7 @@ func LoginHandler(engine *securepassword.Engine) http.HandlerFunc {
 <div dir="ltr">
 
 ```go
-cfg := &securepassword.Config{
+cfg := &hashkit.Config{
 	Memory:      64 * 1024,
 	Iterations:  3,
 	Parallelism: 8,
